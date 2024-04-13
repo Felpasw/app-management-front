@@ -5,11 +5,12 @@ import { MdEmail } from "react-icons/md";
 
 export default function Home() {
   return (
-    <main className="flex  bg-gradient-to-b  ">
-    
-      <div className="border-solid border-2 w-full h-full min-h-[100vh] flex flex-col justify-center items-center gap-6"> 
-        <img src="/logo.png" alt=""  className="rounded-full w-[20%]"/>
-        <div className="w-72">
+    <main className="flex  bg-gradient-to-b ">
+          <img src="./logo.png" alt="" className="w-[50%] h-full min-h-[100vh" />
+        <div className="border-solid border-2 w-[50%] h-full min-h-[100vh] flex flex-col justify-center items-center gap-6"> 
+          <h1 className="text-3xl mb-12">STATUS MANAGER MASTER</h1>
+        
+        <div className="w-[50%]">
            <div className="relative w-full min-w-[200px] h-10">
               <div className="absolute grid w-5 h-5 place-items-center text-blue-gray-500 top-2/4 right-3 -translate-y-2/4">
                  <FaLock />
@@ -23,7 +24,7 @@ export default function Home() {
             </div>
         </div> 
         
-        <div className="w-72">
+        <div className="w-[50%]">
            <div className="relative w-full min-w-[200px] h-10">
               <div className="absolute grid w-5 h-5 place-items-center text-blue-gray-500 top-2/4 right-3 -translate-y-2/4">
                  <MdEmail />
@@ -36,6 +37,9 @@ export default function Home() {
               </label>
             </div>
         </div> 
+        <button type="button" className="w-[50%] text-white bg-gradient-to-r from-black via-black to-blue-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Entrar</button>
+
+
      
      
      
