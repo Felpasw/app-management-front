@@ -1,6 +1,11 @@
+import Layout from "@/components/layout";
+
 export default function dashboard() {
-    return <>
+    return(
+
+    <Layout>
         <h1>Dashboard modo sério</h1>
     
-    </>
+    </Layout>
+    ) 
 }
