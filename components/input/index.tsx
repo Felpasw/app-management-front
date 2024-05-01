@@ -6,7 +6,7 @@ type inputProps = {
     Icon?: ReactNode,
     label: string,
     value: string | number,
-    onChange: (e: ) => void,
+    onChange: (e) => void,
     width: string,
     type: string
 }

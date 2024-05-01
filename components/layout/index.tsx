@@ -1,12 +1,22 @@
+import Header from "../header"
 import Sidebar from "../sidebar"
 
-interface layoutProps {
-    children: JSX.Element
-}
 
-export default function layout ({children}: layoutProps){
-    return <div className="w-full h-full min-h-[100vh]">
-            <Sidebar />
+
+export default function layout ({
+    children,
+  }: Readonly<{
+    children: React.ReactNode;
+  }>){
+    return <div className="w-full h-full min-h-[100vh] relative">
             <Header/>
+            <div className="flex  ">
+                <Sidebar />
+                <div className="w-full h-full">
+                {children}
+
+                </div>
+            </div>
+
         </div>
 }
