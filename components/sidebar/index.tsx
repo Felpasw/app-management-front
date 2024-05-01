@@ -1,3 +1,7 @@
+
+  
+
+
 export default function sidebar(){
     return <div className="flex flex-col h-full p-3 w-60  bg-gradient-to-r from-black via-black to-blue-900  min-h-[100vh]">
 	<div className="space-y-3">
@@ -15,12 +19,12 @@ export default function sidebar(){
 		<div className="flex-1">
 			<ul className="pt-2 pb-4 space-y-1 text-sm">
 				<li className="rounded-sm">
-					<a rel="noopener noreferrer" href="#" className="flex items-center p-2 space-x-3 rounded-md text-white">
+					<a rel="noopener noreferrer" href="/dashboard" className="flex items-center p-2 space-x-3 rounded-md text-white">
 						<span>PCs disponíveis</span>
 					</a>
 				</li>
 				<li className="rounded-sm">
-					<a rel="noopener noreferrer" href="#" className="flex items-center p-2 space-x-3 rounded-md text-white">
+					<a rel="noopener noreferrer" href="/usersManagement" className="flex items-center p-2 space-x-3 rounded-md text-white">
 						<span>Gerenciar usuários</span>
 					</a>
 				</li>
