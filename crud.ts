@@ -1,12 +1,14 @@
 import axios, { AxiosResponse } from "axios"
-const baseUrl = `${process.env.NEXT_BASE_API_URL}` 
+const baseUrl = `${process.env.NEXT_BASE_API_URL ? process.env.NEXT_BASE_API_URL : 'http://localhost:4000'}` 
 
 
+const get = async (route: string, params?: object) => {
 
-const get = async (route: string, params: object) => {
-    const response: AxiosResponse = await axios.get(`${baseUrl}/${route}`, params).catch((response)=>{
+    const response: AxiosResponse = await axios.get(`${baseUrl}/${route}`, params ? params : {}).catch((response)=>{
         return response
     })
+    console.log(response);
+    
     return response.data
 
 }
@@ -32,7 +34,7 @@ const remove =  async (route: string, id: string) => {
     return response.status
 }
 
-export default {
+export  {
     get,
     insert,
     update,
