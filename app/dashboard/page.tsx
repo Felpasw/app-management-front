@@ -88,7 +88,7 @@ export default function dashboard() {
         }}
         isOpen={true}
       >
-        <div>penis</div>
+        <div></div>
       </Modal>
 
       <Layout>
