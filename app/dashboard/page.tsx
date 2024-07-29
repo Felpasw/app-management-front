@@ -2,7 +2,7 @@
 
 import Layout from '@/components/layout';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { FaComputer, FaRegCircleCheck } from 'react-icons/fa6';
+import { FaComputer, FaRegCircleCheck, FaRepeat } from 'react-icons/fa6';
 import { HiOutlineStatusOffline } from 'react-icons/hi';
 import { MdOutlineOnlinePrediction } from 'react-icons/md';
 import { CgDetailsMore } from 'react-icons/cg';
@@ -11,6 +11,7 @@ import { IoChevronDown, IoChevronUp } from 'react-icons/io5';
 import { GiCancel } from 'react-icons/gi';
 import { ImConnection } from 'react-icons/im';
 import Modal from '@/components/modal';
+import Button from '@/components/button';
 
 const computers = [
   {
@@ -88,7 +89,41 @@ export default function dashboard() {
         }}
         isOpen={true}
       >
-        <div></div>
+        <div className="w-full">
+          <div className="w-full h-full flex justify-center flex-col items-center">
+            <FaComputer className="w-[50%] h-[50%]  border p-5 rounded-md" />
+            <b className="text-3xl">DESKTOP12345</b>
+            <hr />
+          </div>
+          <h1>Status</h1>
+          <hr className="mb-4" />
+          <div className="grid grid-cols-2">
+            <b className="flex items-center gap-2">
+              teste <FaRepeat />
+            </b>
+            <b className="flex items-center gap-2">
+              teste <FaRepeat />
+            </b>
+            <b className="flex items-center gap-2">
+              teste <FaRepeat />
+            </b>
+            <b className="flex items-center gap-2">
+              teste <FaRepeat />
+            </b>
+            <b className="flex items-center gap-2">
+              teste <FaRepeat />
+            </b>
+            <b className="flex items-center gap-2">
+              teste <FaRepeat />
+            </b>
+          </div>
+          <h1 className="mt-3">Últimos testes realizados</h1>
+          <hr />
+          <div className="flex">
+            <Button text={'Concluir'} width={'w-[50%]'} />
+            <Button text={'Cancelar'} width={'w-[50%]'} />
+          </div>
+        </div>
       </Modal>
 
       <Layout>
