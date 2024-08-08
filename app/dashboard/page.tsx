@@ -89,7 +89,6 @@ export default function dashboard() {
       icon: <FaUsb />,
       text: 'USB',
     },
-
     {
       icon: <FaTowerBroadcast />,
       text: 'Ping',
@@ -132,6 +131,27 @@ export default function dashboard() {
           </div>
           <h1 className="mt-5">Últimos testes realizados</h1>
           <hr />
+          <div className="flex justify-between my-5">
+            <div className="flex items-center gap-2 text-lg">
+              <FaTowerBroadcast />
+              <b>Ping</b>
+            </div>
+            <div className="flex text-green-400 items-center gap-2 justify-center">
+              <FaRegCircleCheck />
+            </div>
+          </div>
+          <hr />
+          <div className="flex justify-between my-5">
+            <div className="flex items-center gap-2 text-lg">
+              <MdCable />
+              <b>Ehternet</b>
+            </div>
+            <div className=" text-green-400 ">
+              <b className="flex">
+                25/08/2023 às 8:54 <FaRegCircleCheck />
+              </b>
+            </div>
+          </div>
           <div className="flex">
             <Button text={'Concluir'} width={'w-[50%]'} />
             <Button text={'Cancelar'} width={'w-[50%]'} />
