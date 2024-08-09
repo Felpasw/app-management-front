@@ -84,22 +84,51 @@ export default function dashboard() {
     setState(prevArray);
   };
 
-  const tests = [
+  const icons = {
+    USB: <FaUsb />,
+    Ping: <FaTowerBroadcast />,
+    Ethernet: <MdCable />,
+    CPUStress: <BsCpuFill />,
+  };
+
+  const tests = ['USB', 'Ping', 'Ethernet', 'CPUStress'];
+
+  const performedTests = [
     {
-      icon: <FaUsb />,
-      text: 'USB',
+      type: 'Ping',
+      success: true,
+      madeAt: '09/03/2024 às 15:30',
+      sn: '',
     },
     {
-      icon: <FaTowerBroadcast />,
-      text: 'Ping',
+      type: 'USB',
+      success: false,
+      madeAt: '09/03/2024 às 15:30',
+      sn: '',
     },
     {
-      icon: <MdCable />,
-      text: 'Ethernet',
+      type: 'Ethernet',
+      success: true,
+      madeAt: '09/03/2024 às 15:30',
+      sn: '',
     },
     {
-      icon: <BsCpuFill />,
-      text: 'CPUStress',
+      type: 'CPUStress',
+      success: true,
+      madeAt: '01/11/2024 às 15:30',
+      sn: '',
+    },
+    {
+      type: 'USB',
+      success: false,
+      madeAt: '19/12/2023 às 15:30',
+      sn: '',
+    },
+    {
+      type: 'Ping',
+      success: true,
+      madeAt: '09/08/2024 às 15:30',
+      sn: '',
     },
   ];
 
@@ -118,43 +147,55 @@ export default function dashboard() {
           <hr className="mb-4" />
           <div className="grid grid-cols-2 gap-4 my-5">
             {tests.map((item) => (
-              <b className="flex items-center gap-2 justify-between">
-                <div className="flex items-center gap-2">
-                  {item.icon}
-                  {item.text}
-                </div>
-                <div>
-                  <FaRepeat />
-                </div>
-              </b>
+              <>
+                <b className="flex items-center gap-2 justify-between">
+                  <div className="flex items-center gap-2">
+                    {icons[item]}
+                    {item}
+                  </div>
+                  <div>
+                    <FaRepeat />
+                  </div>
+                </b>
+              </>
             ))}
           </div>
           <h1 className="mt-5">Últimos testes realizados</h1>
           <hr />
-          <div className="flex justify-between my-5">
-            <div className="flex items-center gap-2 text-lg">
-              <FaTowerBroadcast />
-              <b>Ping</b>
-            </div>
-            <div className="flex text-green-400 items-center gap-2 justify-center">
-              <FaRegCircleCheck />
-            </div>
+          <div className="max-h-[500px] overflow-y-hidden ">
+            {performedTests.map((item) => {
+              return (
+                <>
+                  <div className="flex justify-between my-5">
+                    <div className="flex items-center gap-2 text-lg">
+                      {icons[item.type]}
+                      <b>{item.type}</b>
+                    </div>
+                    {item.success ? (
+                      <div className="flex text-green-400 items-center gap-2 justify-center">
+                        <b className="flex items-center gap-2">
+                          25/08/2023 às 8:54 <FaRegCircleCheck />
+                        </b>
+                      </div>
+                    ) : (
+                      <div className="flex text-red-400 items-center gap-2 justify-center">
+                        <b className="flex items-center gap-2">
+                          25/08/2023 às 8:54 <FaRegCircleCheck />
+                        </b>
+                      </div>
+                    )}
+                  </div>
+                  <hr />
+                </>
+              );
+            })}
           </div>
+
           <hr />
-          <div className="flex justify-between my-5">
-            <div className="flex items-center gap-2 text-lg">
-              <MdCable />
-              <b>Ehternet</b>
-            </div>
-            <div className=" text-green-400 ">
-              <b className="flex">
-                25/08/2023 às 8:54 <FaRegCircleCheck />
-              </b>
-            </div>
-          </div>
+
           <div className="flex">
-            <Button text={'Concluir'} width={'w-[50%]'} />
-            <Button text={'Cancelar'} width={'w-[50%]'} />
+            <Button color="gradientGreen" text={'Concluir'} width={'w-[50%]'} />
+            <Button color="outlinedWhite" text={'Cancelar'} width={'w-[50%]'} />
           </div>
         </div>
       </Modal>
