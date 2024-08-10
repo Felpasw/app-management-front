@@ -1,7 +1,7 @@
 'use client';
 
 import Layout from '@/components/layout';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FaComputer, FaRegCircleCheck, FaRepeat, FaUsb, FaTowerBroadcast } from 'react-icons/fa6';
 import { HiOutlineStatusOffline } from 'react-icons/hi';
 import { MdOutlineOnlinePrediction, MdCable } from 'react-icons/md';
@@ -13,6 +13,7 @@ import { GiCancel } from 'react-icons/gi';
 import { ImConnection } from 'react-icons/im';
 import Modal from '@/components/modal';
 import Button from '@/components/button';
+import {get} from '@/crud'
 
 const computers = [
   {
@@ -75,8 +76,18 @@ const computers = [
 export default function dashboard() {
   const [isActive, setIsActive] = useState<boolean[]>([] as boolean[]);
   const [isActiveSubmenu, setIsActiveSubmenu] = useState<boolean[]>([] as boolean[]);
+  const [computers, setComputers] = useState([]);
+
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  useEffect(()=> {
+     get('/computer').then((response)=> {
+      console.log(response);
+      
+      setComputers(response)
+     })
+  },[])
 
   const handleChange = (index: number, setState: Dispatch<SetStateAction<boolean[]>>, state: boolean[]) => {
     const prevArray = [...state];
@@ -131,6 +142,8 @@ export default function dashboard() {
       sn: '',
     },
   ];
+
+
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -212,8 +225,8 @@ export default function dashboard() {
                     className="flex flex-col w-full shadow-lg  items-center p-4 hover:scale-110 hover:opacity-75 transition-transform duration-300 ease-in-out cursor-pointer"
                   >
                     <FaComputer className="h-[25%] w-[25%]" />
-                    {element.ip} <br />
-                    {element.name}
+                    {element.IP} <br />
+                    {element.model}
                     {!element.online ? (
                       <div className="flex items-center gap-2">
                         <HiOutlineStatusOffline className="text-red-500" /> offline
