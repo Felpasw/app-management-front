@@ -13,83 +13,24 @@ import { GiCancel } from 'react-icons/gi';
 import { ImConnection } from 'react-icons/im';
 import Modal from '@/components/modal';
 import Button from '@/components/button';
-import {get} from '@/crud'
-
-const computers = [
-  {
-    ip: '192.168.0.1',
-    name: 'DESKTOP12345',
-    online: false,
-  },
-  {
-    ip: '192.168.0.2',
-    name: 'DESKTOP23789',
-    online: true,
-  },
-  {
-    ip: '192.168.0.3',
-    name: 'DESKTOP12345',
-    online: false,
-  },
-  {
-    ip: '192.168.0.4',
-    name: 'DESKTOP237289',
-    online: true,
-  },
-  {
-    ip: '192.168.0.5',
-    name: 'DESKTOP2327289',
-    online: false,
-  },
-  {
-    ip: '192.168.0.6',
-    name: 'DESKTOP132789',
-    online: false,
-  },
-  {
-    ip: '192.168.0.7',
-    name: 'DESKTOP122345',
-    online: false,
-  },
-  {
-    ip: '192.168.0.8',
-    name: 'DESKTOP122345',
-    online: false,
-  },
-  {
-    ip: '192.168.0.9',
-    name: 'DESKTOP123425',
-    online: false,
-  },
-  {
-    ip: '192.168.0.10',
-    name: 'DESKTOP123425',
-    online: false,
-  },
-  {
-    ip: '192.168.0.11',
-    name: 'DESKTOP123425',
-    online: false,
-  },
-];
+import { get } from '@/crud';
 
 export default function dashboard() {
   const [isActive, setIsActive] = useState<boolean[]>([] as boolean[]);
   const [isActiveSubmenu, setIsActiveSubmenu] = useState<boolean[]>([] as boolean[]);
-  const [computers, setComputers] = useState([]);
-
+  const [computers, setComputers] = useState<computers[]>([]);
+  const [testsBa, setTests] = useState<tests[]>([]);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  useEffect(()=> {
-     get('/computer').then((response)=> {
-      console.log(response);
-      
-      setComputers(response)
-     })
-  },[])
+  useEffect(() => {
+    get('/computer').then((response) => {
+      setComputers(response);
+    });
+  }, []);
 
   const handleChange = (index: number, setState: Dispatch<SetStateAction<boolean[]>>, state: boolean[]) => {
+    fetchTests(computers[index].SN);
     const prevArray = [...state];
     prevArray[index] = !prevArray[index];
     setState(prevArray);
@@ -100,6 +41,12 @@ export default function dashboard() {
     Ping: <FaTowerBroadcast />,
     Ethernet: <MdCable />,
     CPUStress: <BsCpuFill />,
+  };
+
+  const fetchTests = async (SN: string) => {
+    console.log(new Date());
+
+    const response = await get('/test', { SN });
   };
 
   const tests = ['USB', 'Ping', 'Ethernet', 'CPUStress'];
@@ -143,9 +90,7 @@ export default function dashboard() {
     },
   ];
 
-
-
-  const toggle = () => setIsOpen(!isOpen);
+  const toggle = async () => setIsOpen(!isOpen);
 
   return (
     <>
