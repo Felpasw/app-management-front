@@ -11,5 +11,5 @@ interface tests {
   msg: string;
   SN: string;
   type: boolean;
-  madeAt: boolean;
+  madeAt: date;
 }

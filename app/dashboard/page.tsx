@@ -1,5 +1,6 @@
 'use client';
 
+import { IoMdCloseCircleOutline } from 'react-icons/io';
 import Layout from '@/components/layout';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FaComputer, FaRegCircleCheck, FaRepeat, FaUsb, FaTowerBroadcast } from 'react-icons/fa6';
@@ -19,7 +20,7 @@ export default function dashboard() {
   const [isActive, setIsActive] = useState<boolean[]>([] as boolean[]);
   const [isActiveSubmenu, setIsActiveSubmenu] = useState<boolean[]>([] as boolean[]);
   const [computers, setComputers] = useState<computers[]>([]);
-  const [testsBa, setTests] = useState<tests[]>([]);
+  const [performedTests, setPerformedTests] = useState<tests[]>([]);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -44,51 +45,11 @@ export default function dashboard() {
   };
 
   const fetchTests = async (SN: string) => {
-    console.log(new Date());
-
     const response = await get('/test', { SN });
+    setPerformedTests(response);
   };
 
   const tests = ['USB', 'Ping', 'Ethernet', 'CPUStress'];
-
-  const performedTests = [
-    {
-      type: 'Ping',
-      success: true,
-      madeAt: '09/03/2024 às 15:30',
-      sn: '',
-    },
-    {
-      type: 'USB',
-      success: false,
-      madeAt: '09/03/2024 às 15:30',
-      sn: '',
-    },
-    {
-      type: 'Ethernet',
-      success: true,
-      madeAt: '09/03/2024 às 15:30',
-      sn: '',
-    },
-    {
-      type: 'CPUStress',
-      success: true,
-      madeAt: '01/11/2024 às 15:30',
-      sn: '',
-    },
-    {
-      type: 'USB',
-      success: false,
-      madeAt: '19/12/2023 às 15:30',
-      sn: '',
-    },
-    {
-      type: 'Ping',
-      success: true,
-      madeAt: '09/08/2024 às 15:30',
-      sn: '',
-    },
-  ];
 
   const toggle = async () => setIsOpen(!isOpen);
 
@@ -132,13 +93,15 @@ export default function dashboard() {
                     {item.success ? (
                       <div className="flex text-green-400 items-center gap-2 justify-center">
                         <b className="flex items-center gap-2">
-                          25/08/2023 às 8:54 <FaRegCircleCheck />
+                          {item.madeAt} <FaRegCircleCheck />
                         </b>
                       </div>
                     ) : (
                       <div className="flex text-red-400 items-center gap-2 justify-center">
                         <b className="flex items-center gap-2">
-                          25/08/2023 às 8:54 <FaRegCircleCheck />
+                          {item.madeAt}
+
+                          <IoMdCloseCircleOutline />
                         </b>
                       </div>
                     )}
