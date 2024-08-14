@@ -23,11 +23,6 @@ export default function sidebar() {
   return (
     <div className="flex flex-col h-full p-3 w-[16%] bg-black justify-between min-h-[100vh]">
       <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <h2>Dashboard</h2>
-          <button className="p-2"></button>
-        </div>
-
         <img src="./STATUSMANAGERBRANCO.png" alt="" className="h-full w-full" />
 
         <div className="flex-1">
@@ -58,20 +53,25 @@ export default function sidebar() {
           </ul>
         </div>
       </div>
-      <div className="flex items-center p-2 mt-12 space-x-4 justify-self-end">
-        <img
-          src="https://source.unsplash.com/100x100/?portrait"
-          alt=""
-          className="w-12 h-12 rounded-lg dark:bg-gray-500"
-        />
-        <div>
-          <h2 className="text-lg text-[#ffff]">Felpasw</h2>
-          <span className="flex items-center space-x-1">
-            <a rel="noopener noreferrer" href="#" className="text-xs hover:underline dark:text-gray-600">
-              View profile
-            </a>
-          </span>
+      <div className="p-2 mt-12 space-x-4 justify-self-end">
+        <div className="flex gap-2 items-center ">
+          <img
+            src="https://source.unsplash.com/100x100/?portrait"
+            alt=""
+            className="w-12 h-12 rounded-lg dark:bg-gray-500"
+          />
+          <div>
+            <h2 className="text-lg text-[#ffff]">Felpasw</h2>
+            <span className="flex items-center space-x-1">
+              <a rel="noopener noreferrer" href="#" className="text-xs hover:underline dark:text-gray-600">
+                View profile
+              </a>
+            </span>
+          </div>
         </div>
+        <p className="text-white text-sm">
+          Status Manager <b>by felpasw</b>
+        </p>
       </div>
     </div>
   );
