@@ -21,7 +21,7 @@ export default function dashboard() {
   const [isActiveSubmenu, setIsActiveSubmenu] = useState<boolean[]>([] as boolean[]);
   const [computers, setComputers] = useState<computers[]>([]);
   const [performedTests, setPerformedTests] = useState<tests[]>([]);
-
+  const [computerInfo, setComputerInfo] = useState<computers>({} as computers);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -30,8 +30,7 @@ export default function dashboard() {
     });
   }, []);
 
-  const handleChange = (index: number, setState: Dispatch<SetStateAction<boolean[]>>, state: boolean[]) => {
-    fetchTests(computers[index].SN);
+  const handleChange = async (index: number, setState: Dispatch<SetStateAction<boolean[]>>, state: boolean[]) => {
     const prevArray = [...state];
     prevArray[index] = !prevArray[index];
     setState(prevArray);
@@ -44,9 +43,16 @@ export default function dashboard() {
     CPUStress: <BsCpuFill />,
   };
 
-  const fetchTests = async (SN: string) => {
-    const response = await get('/test', { SN });
-    setPerformedTests(response);
+  const getMethods = {
+    computer: async (SN: string) => {
+      const response = await get('/computer', { SN });
+      setComputerInfo(response[0]);
+    },
+
+    test: async (SN: string) => {
+      const response = await get('/test', { SN });
+      setPerformedTests(response);
+    },
   };
 
   const tests = ['USB', 'Ping', 'Ethernet', 'CPUStress'];
@@ -59,7 +65,8 @@ export default function dashboard() {
         <div className="w-full">
           <div className="w-full h-full flex justify-center flex-col items-center">
             <FaComputer className="w-[30%] h-[30%]  border p-6" />
-            <b className="text-3xl my-3">DESKTOP12345</b>
+            <b className="text-3xl my-3">{computerInfo.model}</b>
+            <p className="my-3 text-sm">SN: {computerInfo.SN}</p>
             <hr />
           </div>
           <h1>Status</h1>
@@ -148,7 +155,12 @@ export default function dashboard() {
                   {isActive[index] && (
                     <div className="absolute w-full h-fit p-6 gap-3 shadow-lg z-50 bg-white mt-3 rounded flex flex-col">
                       <div
-                        onClick={toggle}
+                        onClick={async () => {
+                          for (const key in getMethods) {
+                            await getMethods[key](element.SN);
+                          }
+                          toggle();
+                        }}
                         className="flex hover:scale-110 gap-2 hover:opacity-75 transition-transform duration-300 ease-in-out cursor-pointer items-center"
                       >
                         <CgDetailsMore /> Ver detalhes
