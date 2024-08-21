@@ -14,7 +14,7 @@ import { GiCancel } from 'react-icons/gi';
 import { ImConnection } from 'react-icons/im';
 import Modal from '@/components/modal';
 import Button from '@/components/button';
-import { get } from '@/crud';
+import { get, insert } from '@/crud';
 
 export default function dashboard() {
   const [isActive, setIsActive] = useState<boolean[]>([] as boolean[]);
@@ -53,11 +53,22 @@ export default function dashboard() {
       const response = await get('/test', { SN });
       setPerformedTests(response);
     },
+    queue: async (SN: string) => {
+      const response = await get('/queue', { SN, status: 1 });
+    },
   };
 
   const tests = ['USB', 'Ping', 'Ethernet', 'CPUStress'];
 
   const toggle = async () => setIsOpen(!isOpen);
+
+  const requestTest = async (item) => {
+    const response = await insert(`/queue`, {
+      status: 1,
+      SN: computerInfo.SN,
+      method: item,
+    });
+  };
 
   return (
     <>
@@ -79,9 +90,7 @@ export default function dashboard() {
                     {icons[item]}
                     {item}
                   </div>
-                  <div>
-                    <FaRepeat />
-                  </div>
+                  <FaRepeat className="cursor-pointer" onClick={() => requestTest(item)} />
                 </b>
               </>
             ))}
