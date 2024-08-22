@@ -71,9 +71,7 @@ export default function dashboard() {
       const response: queue[] = await get('/queue', { SN, status: 1 });
 
       response.forEach((item) => {
-        if (item.status === 1) {
-          setIsPending({ ...isPending, [item.method]: true });
-        }
+        setIsPending({ ...isPending, [item.method]: true });
       });
     },
   };
@@ -193,6 +191,12 @@ export default function dashboard() {
                     <div className="absolute w-full h-fit p-6 gap-3 shadow-lg z-50 bg-white mt-3 rounded flex flex-col">
                       <div
                         onClick={async () => {
+                          setIsPending({
+                            USB: false,
+                            Ping: false,
+                            Ethernet: false,
+                            CPUStress: false,
+                          });
                           for (const key in getMethods) {
                             await getMethods[key](element.SN);
                           }
