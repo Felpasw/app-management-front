@@ -14,7 +14,15 @@ import { GiCancel } from 'react-icons/gi';
 import { ImConnection } from 'react-icons/im';
 import Modal from '@/components/modal';
 import Button from '@/components/button';
+import Spinner from '@/components/spinner';
 import { get, insert } from '@/crud';
+
+interface isPendingTests {
+  USB: boolean;
+  Ping: boolean;
+  Ethernet: boolean;
+  CPUStress: boolean;
+}
 
 export default function dashboard() {
   const [isActive, setIsActive] = useState<boolean[]>([] as boolean[]);
@@ -23,6 +31,12 @@ export default function dashboard() {
   const [performedTests, setPerformedTests] = useState<tests[]>([]);
   const [computerInfo, setComputerInfo] = useState<computers>({} as computers);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isPending, setIsPending] = useState<isPendingTests>({
+    USB: false,
+    Ping: false,
+    Ethernet: false,
+    CPUStress: false,
+  });
 
   useEffect(() => {
     get('/computer').then((response) => {
@@ -54,7 +68,13 @@ export default function dashboard() {
       setPerformedTests(response);
     },
     queue: async (SN: string) => {
-      const response = await get('/queue', { SN, status: 1 });
+      const response: queue[] = await get('/queue', { SN, status: 1 });
+
+      response.forEach((item) => {
+        if (item.status === 1) {
+          setIsPending({ ...isPending, [item.method]: true });
+        }
+      });
     },
   };
 
@@ -63,11 +83,12 @@ export default function dashboard() {
   const toggle = async () => setIsOpen(!isOpen);
 
   const requestTest = async (item) => {
-    const response = await insert(`/queue`, {
+    await insert(`/queue`, {
       status: 1,
       SN: computerInfo.SN,
       method: item,
     });
+    getMethods.queue(computerInfo.SN);
   };
 
   return (
@@ -90,7 +111,11 @@ export default function dashboard() {
                     {icons[item]}
                     {item}
                   </div>
-                  <FaRepeat className="cursor-pointer" onClick={() => requestTest(item)} />
+                  {isPending[item] ? (
+                    <Spinner />
+                  ) : (
+                    <FaRepeat className="cursor-pointer" onClick={() => requestTest(item)} />
+                  )}
                 </b>
               </>
             ))}
@@ -126,6 +151,9 @@ export default function dashboard() {
                 </>
               );
             })}
+            {performedTests.length === 0 && (
+              <h1 className="my-5 w-full flex items-center justify-center"> Nenhum teste realizado</h1>
+            )}
           </div>
 
           <hr />

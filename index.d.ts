@@ -13,3 +13,11 @@ interface tests {
   type: boolean;
   madeAt: date;
 }
+
+interface queue {
+  _id: string;
+  status: number;
+  method: string;
+  SN: string;
+  requestedAt: string;
+}
