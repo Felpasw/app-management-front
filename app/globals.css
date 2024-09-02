@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=New+Amsterdam&display=swap');
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -17,7 +20,10 @@
 }
 
 body {
-  
+  font-family: 'New Amsterdam', sans-serif;
+  background: linear-gradient(
+    to bottom,
+  );
 }
 
 @layer utilities {

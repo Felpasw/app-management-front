@@ -16,6 +16,9 @@ import Modal from '@/components/modal';
 import Button from '@/components/button';
 import Spinner from '@/components/spinner';
 import { get, insert } from '@/crud';
+import colors from '@/colors'
+
+
 
 interface isPendingTests {
   USB: boolean;
@@ -94,9 +97,9 @@ export default function dashboard() {
       <Modal toggle={toggle} isOpen={isOpen}>
         <div className="w-full">
           <div className="w-full h-full flex justify-center flex-col items-center">
-            <FaComputer className="w-[30%] h-[30%]  border p-6" />
-            <b className="text-3xl my-3">{computerInfo.model}</b>
-            <p className="my-3 text-sm">SN: {computerInfo.SN}</p>
+            <FaComputer className= {`w-[30%] h-[30%]   p-6 text-[#42ADA5]`} />
+            <b className="text-5xl my-3 text-[#42ADA5]">{computerInfo.model}</b>
+            <b className="my-3 text-sm">SN: {computerInfo.SN}</b>
             <hr />
           </div>
           <h1>Status</h1>
@@ -112,7 +115,7 @@ export default function dashboard() {
                   {isPending[item] ? (
                     <Spinner />
                   ) : (
-                    <FaRepeat className="cursor-pointer" onClick={() => requestTest(item)} />
+                    <FaRepeat className="cursor-pointer text-[#42ADA5]" onClick={() => requestTest(item)} />
                   )}
                 </b>
               </>
@@ -150,7 +153,7 @@ export default function dashboard() {
               );
             })}
             {performedTests.length === 0 && (
-              <h1 className="my-5 w-full flex items-center justify-center"> Nenhum teste realizado</h1>
+              <h1 className="my-5 w-full flex items-center justify-center text-[#42ADA5]"> Nenhum teste realizado</h1>
             )}
           </div>
 
@@ -158,7 +161,7 @@ export default function dashboard() {
 
           <div className="flex">
             <Button color="gradientGreen" text={'Concluir'} width={'w-[50%]'} />
-            <Button color="outlinedWhite" text={'Cancelar'} width={'w-[50%]'} />
+            <Button color="outlinedWhite" text={'Cancelar'} width={'w-[50%]'} onClick={toggle}/>
           </div>
         </div>
       </Modal>
@@ -174,7 +177,7 @@ export default function dashboard() {
                     onClick={() => handleChange(index, setIsActive, isActive)}
                     className="flex flex-col w-full shadow-lg  items-center p-4 hover:scale-110 hover:opacity-75 transition-transform duration-300 ease-in-out cursor-pointer"
                   >
-                    <FaComputer className="h-[25%] w-[25%]" />
+                    <FaComputer className="h-[25%] w-[25%] text-[#42ADA5]" />
                     {element.IP} <br />
                     {element.model}
                     {!element.online ? (
