@@ -2,17 +2,20 @@
 
 import Button from '@/components/button';
 import Input from '@/components/input';
+import { insert } from '@/crud';
 import { useState } from 'react';
 import { FaLock } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 
 export default function Home() {
   const [password, setPassword] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
 
-  const login = () => {
-    alert(`Email ${email}  Password  ${password}`);
-    window.location.href = '/dashboard';
+  const login = async () => {
+    const response = await insert('/login', { username, password });
+    console.log(response);
+
+    // window.location.href = '/dashboard';
   };
 
   return (
@@ -21,10 +24,10 @@ export default function Home() {
         <img src="./STATUSMANAGER.png" alt="" className="h-[65%] w-[65%]" />
 
         <Input
-          label={'Email'}
-          value={email}
+          label={'Usuário'}
+          value={username}
           Icon={<MdEmail />}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
           width={'w-[45%]'}
           type={'email'}
         />
