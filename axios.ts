@@ -8,20 +8,7 @@ const axiosInstance = axios.create({
     withCredentials: true, 
 });
 
-axiosInstance.interceptors.request.use(
-    function (config) {
-        const token = sessionStorage.getItem("token");
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-    },
-    function (error) {
-        console.error('Erro na configuração da requisição:', error);
-        alert("Ocorreu um erro ao configurar a requisição.");
-        return Promise.reject(error);
-    }
-);
+
 
 axiosInstance.interceptors.response.use(
     function (response) {
@@ -33,7 +20,7 @@ axiosInstance.interceptors.response.use(
                 alert(
                     "Sessão expirada. Redirecionando para a página de login."
                 );
-                window.location.href = "/login";
+                window.location.href = "/";
             } else {
                 console.error(
                     "Erro HTTP:",

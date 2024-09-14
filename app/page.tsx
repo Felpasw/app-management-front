@@ -15,10 +15,11 @@ export default function Home() {
     const response = await insert('/login', { username, password });
     console.log(response);
 
-    // window.location.href = '/dashboard';
+    window.location.href = '/dashboard';
   };
 
   return (
+  
     <main className="flex  bg-gradient-to-b ">
       <div className="border-solid border-2 w-[50%] h-full min-h-[100vh] flex flex-col justify-center items-center gap-6">
         <img src="./STATUSMANAGER.png" alt="" className="h-[65%] w-[65%]" />

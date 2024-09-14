@@ -23,7 +23,7 @@ const update = async (route: string, object: object, id: string) => {
 };
 
 const remove = async (route: string, id: string) => {
-  const response: AxiosResponse = await axiosInstance.post(`${route}/${id}`).catch((response) => {
+  const response: AxiosResponse = await axiosInstance.delete(`${route}/${id}`).catch((response) => {
     return response;
   });
   return response.status;
