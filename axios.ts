@@ -16,19 +16,9 @@ axiosInstance.interceptors.response.use(
     },
     function (error) {
         if (error.response) {
-            if (error.response.status === 401) {
-                alert(
-                    "Sessão expirada. Redirecionando para a página de login."
-                );
+            if (error.response.status === 401) { 
                 window.location.href = "/";
-            } else {
-                console.error(
-                    "Erro HTTP:",
-                    error.response.status,
-                    error.response.data
-                );
-                alert(`Ocorreu um erro: ${error.response.status}`);
-            }
+            } 
         } else {
             console.error("Erro na requisição:", error);
             alert("Ocorreu um erro de rede. Por favor, tente novamente.");
