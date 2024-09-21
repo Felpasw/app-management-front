@@ -13,11 +13,11 @@ export default function sidebar() {
       text: 'PCs disponíveis',
       icon: <HiOutlineComputerDesktop />,
     },
-    {
-      route: '/usersManagement',
-      text: 'Gerenciar usuários',
-      icon: <AiOutlineIdcard />,
-    },
+   // {
+      //route: '/usersManagement',
+      //text: 'Gerenciar usuários',
+      //icon: <AiOutlineIdcard />,
+    //},
   ];
 
   return (
