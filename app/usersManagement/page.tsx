@@ -29,7 +29,7 @@ export default function usersManagement() {
         <div className="mx-5 w-full">
           <h1 className="mt-16 text-4xl my-6 ">Gerenciamento de usuários</h1>
           <div className="grid grid-cols-5 gap-3 w-full">
-            {users?.map((element: user, index) => (
+            {/* {users?.map((element: user, index) => (
               <div key={index} className="rounded items-center relative w-full">
                 <div
                   onClick={() => handleChange(index, setIsActive, isActive)}
@@ -52,7 +52,7 @@ export default function usersManagement() {
                   </div>
                 )}
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
       </div>
