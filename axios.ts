@@ -1,11 +1,10 @@
 import axios from 'axios'
 
-const baseURL = `https://app-management-api.onrender.com` 
+const baseURL = `http://localhost:4000` 
 
 
 const axiosInstance = axios.create({
     baseURL, 
-    withCredentials: true, 
 });
 
 
