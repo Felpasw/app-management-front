@@ -16,7 +16,6 @@ import Modal from '@/components/modal';
 import Button from '@/components/button';
 import Spinner from '@/components/spinner';
 import { get, insert,remove } from '@/crud';
-import colors from '@/colors'
 import Input from '@/components/input';
 import { ToastContainer, toast } from 'react-toastify';
 
