@@ -156,7 +156,7 @@ export default function dashboard() {
           </div>
           <h1 className="mt-5">Últimos testes realizados</h1>
           <hr />
-          <div className="max-h-[500px] overflow-y-hidden ">
+          <div className="max-h-[300px] overflow-y-scroll ">
             {performedTests.map((item: tests) => {
               return (
                 <>
