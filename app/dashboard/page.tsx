@@ -94,7 +94,7 @@ export default function dashboard() {
 
   const toggle = async () => setIsOpen(!isOpen);
 
-  const requestTest = async (item) => {
+  const requestTest = async (item: string) => {
     await insert(`/queue`, {
       status: 1,
       SN: computerInfo.SN,
@@ -142,10 +142,10 @@ export default function dashboard() {
               <>
                 <b className="flex items-center gap-2 justify-between">
                   <div className="flex items-center gap-2">
-                    {icons[item]}
+                    {icons[item as keyof typeof icons]}
                     {item}
                   </div>
-                  {isPending[item] ? (
+                  {isPending[item as keyof typeof isPending] ? (
                     <Spinner />
                   ) : (
                     <FaRepeat className="cursor-pointer text-[#42ADA5]" onClick={() => requestTest(item)} />
@@ -157,7 +157,7 @@ export default function dashboard() {
           <h1 className="mt-5">Últimos testes realizados</h1>
           <hr />
           <div className="max-h-[500px] overflow-y-hidden ">
-            {performedTests.map((item) => {
+            {performedTests.map((item: tests) => {
               return (
                 <>
                   <div className="flex justify-between my-5">
@@ -262,7 +262,8 @@ export default function dashboard() {
                             CPUStress: false,
                           });
                           for (const key in getMethods) {
-                            await getMethods[key](element.SN);
+                            const method = getMethods[key as keyof typeof getMethods];  // Garante que 'key' é uma chave válida
+                            await method(element.SN);  // Chama o método corretamente
                           }
                           toggle();
                         }}

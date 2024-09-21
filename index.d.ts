@@ -10,8 +10,17 @@ interface tests {
   success: boolean;
   msg: string;
   SN: string;
-  type: boolean;
+  type:  "USB" | "Ethernet" | "Ping" | "CPUStress";
   madeAt: date;
+}
+
+interface performedTest{
+  _id: string
+  msg: string,
+  SN: string,
+  type: "USB" | "Ethernet" | "Ping" | "CPUStress"
+  success: boolean
+  madeAt: string
 }
 
 interface queue {
