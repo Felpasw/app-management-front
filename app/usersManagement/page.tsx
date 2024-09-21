@@ -9,7 +9,7 @@ import { get } from '@/crud';
 export default function usersManagement() {
   const [isActive, setIsActive] = useState<boolean[]>([] as boolean[]);
   const [isActiveSubmenu, setIsActiveSubmenu] = useState<boolean[]>([] as boolean[]);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([] as user[]);
 
   useEffect(() => {
     get('user').then((response) => {
@@ -29,7 +29,7 @@ export default function usersManagement() {
         <div className="mx-5 w-full">
           <h1 className="mt-16 text-4xl my-6 ">Gerenciamento de usuários</h1>
           <div className="grid grid-cols-5 gap-3 w-full">
-            {users?.map((element, index) => (
+            {users?.map((element: user, index) => (
               <div key={index} className="rounded items-center relative w-full">
                 <div
                   onClick={() => handleChange(index, setIsActive, isActive)}

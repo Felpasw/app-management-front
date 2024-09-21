@@ -23,6 +23,12 @@ interface performedTest{
   madeAt: string
 }
 
+interface user{
+  _id: string,
+  username: string,
+  password: string,
+}
+
 interface queue {
   _id: string;
   status: number;
