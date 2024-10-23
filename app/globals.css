@@ -21,9 +21,15 @@
 
 body {
   font-family: 'New Amsterdam', sans-serif;
-  background: linear-gradient(
-    to bottom,
-  );
+  background: linear-gradient(to bottom);
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Esconder a barra de rolagem no Firefox */
+.hide-scrollbar {
+  scrollbar-width: none;
 }
 
 @layer utilities {

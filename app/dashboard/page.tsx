@@ -15,13 +15,10 @@ import { ImConnection } from 'react-icons/im';
 import Modal from '@/components/modal';
 import Button from '@/components/button';
 import Spinner from '@/components/spinner';
-import { get, insert,remove } from '@/crud';
+import { get, insert, remove } from '@/crud';
 import Input from '@/components/input';
 import { ToastContainer, toast } from 'react-toastify';
-
-
-
-
+import MyDoughnutChart from '@/components/graph';
 
 interface isPendingTests {
   USB: boolean;
@@ -41,9 +38,7 @@ export default function dashboard() {
   const [newPcParams, setNewPCParams] = useState({
     SN: '',
     model: '',
-
-  })
-
+  });
 
   const [isPending, setIsPending] = useState<isPendingTests>({
     USB: false,
@@ -51,6 +46,11 @@ export default function dashboard() {
     Ethernet: false,
     CPUStress: false,
   });
+
+  const data = {
+    labels: ['Red', 'Blue', 'Yellow'],
+    datasets: [{ label: 'CARAIO', data: [100] }],
+  };
 
   useEffect(() => {
     get('/computer').then((response) => {
@@ -105,36 +105,43 @@ export default function dashboard() {
 
   const sendNewPC = async () => {
     const response = await insert('/computer', newPcParams);
-    toast.success('Sucesso ao adicionar PC!')
+    toast.success('Sucesso ao adicionar PC!');
     get('/computer').then((response) => {
       setComputers(response);
     });
-  }
+  };
 
-  const removePC = async () =>  {
-    await remove('/computer', computerInfo._id)
+  const removePC = async () => {
+    await remove('/computer', computerInfo._id);
 
-    toast.success('Sucesso ao remover PC!')
+    toast.success('Sucesso ao remover PC!');
 
     get('/computer').then((response) => {
       setComputers(response);
     });
-    toggle()
-
-  }
+    toggle();
+  };
 
   return (
     <>
-    <ToastContainer/>
+      <ToastContainer />
       <Modal toggle={toggle} isOpen={isOpen}>
         <div className="w-full">
           <div className="w-full h-full flex justify-center flex-col items-center">
-            <FaComputer className= {`w-[30%] h-[30%]   p-6 text-[#42ADA5]`} />
+            <FaComputer className={`w-[30%] h-[30%]   p-6 text-[#42ADA5]`} />
             <b className="text-5xl my-3 text-[#42ADA5]">{computerInfo.model}</b>
-            <b className="my-3 text-sm">SN: {computerInfo.SN} - <b className='text-red-400 cursor-pointer' onClick={removePC}> Remover </b>  </b> 
+            <b className="my-3 text-sm">
+              SN: {computerInfo.SN} -{' '}
+              <b className="text-red-400 cursor-pointer" onClick={removePC}>
+                {' '}
+                Remover{' '}
+              </b>{' '}
+            </b>
             <hr />
-
           </div>
+          <h1>Dashboard</h1>
+          <hr className="mb-4" />
+          <MyDoughnutChart />
           <h1>Status</h1>
           <hr className="mb-4" />
           <div className="grid grid-cols-2 gap-4 my-5">
@@ -189,47 +196,54 @@ export default function dashboard() {
               <h1 className="my-5 w-full flex items-center justify-center text-[#42ADA5]"> Nenhum teste realizado</h1>
             )}
           </div>
-
           <hr />
-
           <div className="flex">
             <Button color="gradientGreen" text={'Concluir'} width={'w-[50%]'} />
-            <Button color="outlinedWhite" text={'Cancelar'} width={'w-[50%]'} onClick={toggle}/>
+            <Button color="outlinedWhite" text={'Cancelar'} width={'w-[50%]'} onClick={toggle} />
           </div>
         </div>
       </Modal>
 
-      <Modal toggle={()=> setIsOpenNewPC(!isOpenNewPC)} isOpen={isOpenNewPC}>
-          <div className='w-full h-full p-12'>
-             <h1 className='w-full text-3xl flex justify-center'>Novo computador </h1>
-             <div className='mt-5 flex items-center w-full justify-center flex-col gap-6'>
-             <Input
-                label={'Número de série'}
-                value={newPcParams.SN}
-                onChange={(e) => setNewPCParams({...newPcParams, SN: e.target.value})}
-                width={'w-[80%]'}
-                type={'text'}
-               />
-               
-               <Input
-                label={'Modelo'}
-                value={newPcParams.model}
-                onChange={(e) => setNewPCParams({...newPcParams, model: e.target.value})}
-                width={'w-[80%]'}
-                type={'text'}
-               />
-             <Button text={'Enviar'} width={'h-[40px] w-[80%]'} color={'gradientGreen'} onClick={()=> sendNewPC()}></Button>
-             </div>
-          </div>
-      </Modal>
+      <Modal toggle={() => setIsOpenNewPC(!isOpenNewPC)} isOpen={isOpenNewPC}>
+        <div className="w-full h-full p-12">
+          <h1 className="w-full text-3xl flex justify-center">Novo computador </h1>
+          <div className="mt-5 flex items-center w-full justify-center flex-col gap-6">
+            <Input
+              label={'Número de série'}
+              value={newPcParams.SN}
+              onChange={(e) => setNewPCParams({ ...newPcParams, SN: e.target.value })}
+              width={'w-[80%]'}
+              type={'text'}
+            />
 
+            <Input
+              label={'Modelo'}
+              value={newPcParams.model}
+              onChange={(e) => setNewPCParams({ ...newPcParams, model: e.target.value })}
+              width={'w-[80%]'}
+              type={'text'}
+            />
+            <Button
+              text={'Enviar'}
+              width={'h-[40px] w-[80%]'}
+              color={'gradientGreen'}
+              onClick={() => sendNewPC()}
+            ></Button>
+          </div>
+        </div>
+      </Modal>
 
       <Layout>
         <div className="flex w-full">
           <div className="mx-5 w-full">
-            <div className='w-full flex justify-between items-center'>
-            <h1 className="mt-16 text-4xl my-6 ">Computadores disponíveis</h1>
-              <Button text={'Novo computador'} width={'h-[50px] my-6'} color={'gradientGreen'} onClick={()=> setIsOpenNewPC(!isOpenNewPC)}></Button>
+            <div className="w-full flex justify-between items-center">
+              <h1 className="mt-16 text-4xl my-6 ">Computadores disponíveis</h1>
+              <Button
+                text={'Novo computador'}
+                width={'h-[50px] my-6'}
+                color={'gradientGreen'}
+                onClick={() => setIsOpenNewPC(!isOpenNewPC)}
+              ></Button>
             </div>
             <div className="grid grid-cols-5 gap-3 w-full">
               {computers.map((element, index) => (
@@ -262,8 +276,8 @@ export default function dashboard() {
                             CPUStress: false,
                           });
                           for (const key in getMethods) {
-                            const method = getMethods[key as keyof typeof getMethods];  // Garante que 'key' é uma chave válida
-                            await method(element.SN);  // Chama o método corretamente
+                            const method = getMethods[key as keyof typeof getMethods]; // Garante que 'key' é uma chave válida
+                            await method(element.SN); // Chama o método corretamente
                           }
                           toggle();
                         }}
