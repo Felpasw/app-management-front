@@ -13,11 +13,11 @@ export default function sidebar() {
       text: 'PCs disponíveis',
       icon: <HiOutlineComputerDesktop />,
     },
-   // {
-      //route: '/usersManagement',
-      //text: 'Gerenciar usuários',
-      //icon: <AiOutlineIdcard />,
-    //},
+    {
+      route: '/usersManagement',
+      text: 'Gerenciar usuários',
+      icon: <AiOutlineIdcard />,
+    },
   ];
 
   return (
@@ -54,21 +54,7 @@ export default function sidebar() {
         </div>
       </div>
       <div className="p-2 mt-12 space-x-4 justify-self-end">
-        <div className="flex gap-2 items-center ">
-          <img
-            src="https://source.unsplash.com/100x100/?portrait"
-            alt=""
-            className="w-12 h-12 rounded-lg dark:bg-gray-500"
-          />
-          <div>
-            <h2 className="text-lg text-[#ffff]">Felpasw</h2>
-            <span className="flex items-center space-x-1">
-              <a rel="noopener noreferrer" href="#" className="text-xs hover:underline dark:text-gray-600">
-                View profile
-              </a>
-            </span>
-          </div>
-        </div>
+        
         <p className="text-white text-sm">
           Status Manager <b>by felpasw</b>
         </p>
