@@ -38,7 +38,6 @@ interface graph {
 
 export default function dashboard() {
   const [isActive, setIsActive] = useState<boolean[]>([] as boolean[]);
-  const [isActiveSubmenu, setIsActiveSubmenu] = useState<boolean[]>([] as boolean[]);
   const [computers, setComputers] = useState<computers[]>([]);
   const [performedTests, setPerformedTests] = useState<tests[]>([]);
   const [computerInfo, setComputerInfo] = useState<computers>({} as computers);
@@ -333,30 +332,7 @@ export default function dashboard() {
                       >
                         <CgDetailsMore /> Ver detalhes
                       </div>
-                      <div
-                        onClick={() => handleChange(index, setIsActiveSubmenu, isActiveSubmenu)}
-                        className="flex hover:scale-110 hover:opacity-75 transition-transform duration-300 ease-in-out cursor-pointer items-center justify-between gap-6"
-                      >
-                        <div className="flex items-center gap-2">
-                          <FaHeartbeat /> Status
-                        </div>
-                        {isActiveSubmenu[index] ? <IoChevronDown /> : <IoChevronUp />}
-                      </div>
-                      {isActiveSubmenu[index] && (
-                        <div className="flex flex-col items-start">
-                          <div className="flex w-full items-center gap-2">
-                            <FaFan /> Fan <GiCancel className="text-red-500" />
-                          </div>
-                          <hr />
-
-                          <div className="flex w-full items-center gap-2   ">
-                            <FaMouse /> Mouse <FaRegCircleCheck className="text-green-400" />
-                          </div>
-                          <div className="flex w-full items-center gap-2   ">
-                            <ImConnection /> Ping <FaRegCircleCheck className="text-green-400" />
-                          </div>
-                        </div>
-                      )}
+                    
                     </div>
                   )}
                 </div>
