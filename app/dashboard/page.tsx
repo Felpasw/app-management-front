@@ -27,6 +27,15 @@ interface isPendingTests {
   CPUStress: boolean;
 }
 
+
+interface graph {
+  CPU: graphParams
+  Ethernet: graphParams
+  Ping: graphParams
+  USB: graphParams
+  general: graphParams
+}
+
 export default function dashboard() {
   const [isActive, setIsActive] = useState<boolean[]>([] as boolean[]);
   const [isActiveSubmenu, setIsActiveSubmenu] = useState<boolean[]>([] as boolean[]);
@@ -39,6 +48,14 @@ export default function dashboard() {
     SN: '',
     model: '',
   });
+  const [graph, setGraph] = useState({    
+      CPU: { success: 0, fail: 0 },
+      Ethernet: { success: 0, fail: 0 },
+      Ping: { success: 0, fail: 0 },
+      USB: { success: 0, fail: 0 },
+      general: { success: 0, fail: 0 },
+  } as graph)
+
 
   const [isPending, setIsPending] = useState<isPendingTests>({
     USB: false,
@@ -88,6 +105,10 @@ export default function dashboard() {
         setIsPending({ ...isPending, [item.method]: true });
       });
     },
+    graph: async (SN: string) => {
+      const response = await get('/graph/getCounts', {SN})
+      setGraph(response)
+    }
   };
 
   const tests = ['USB', 'Ping', 'Ethernet', 'CPUStress'];
@@ -141,7 +162,34 @@ export default function dashboard() {
           </div>
           <h1>Dashboard</h1>
           <hr className="mb-4" />
-          <MyDoughnutChart />
+          <div className='w-full max-h-[40vh] flex flex-col items-center mb-12'>
+          <b>Testes gerais</b>
+          <MyDoughnutChart params={graph.general}/>
+
+          </div>
+
+          <div className='grid grid-cols-4'>
+            <div className='flex flex-col items-center'>
+              <b>Testes de CPU</b>
+            <MyDoughnutChart params={graph.CPU}/>
+
+            </div>
+            <div className='flex flex-col items-center'>
+              <b>Testes de Ethernet</b>
+              <MyDoughnutChart params={graph.Ethernet}/>
+
+            </div>
+            <div className='flex flex-col items-center'>
+              <b>Testes de Ping</b>
+            <MyDoughnutChart params={graph.Ping}/>
+
+            </div>
+            <div className='flex flex-col items-center'>
+            <b>Testes de SUB</b>
+            <MyDoughnutChart params={graph.USB}/>
+            </div>
+
+          </div>
           <h1>Status</h1>
           <hr className="mb-4" />
           <div className="grid grid-cols-2 gap-4 my-5">

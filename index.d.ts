@@ -23,6 +23,11 @@ interface performedTest{
   madeAt: string
 }
 
+interface graphParams{
+  success: number,
+  fail: number,
+}
+
 interface user{
   _id: string,
   username: string,

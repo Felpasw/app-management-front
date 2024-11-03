@@ -26,7 +26,7 @@ export default function Modal({ toggle, isOpen, children }: modalProps) {
       {render && (
         <div className="bg-black/30 backdrop-blur-sm h-full w-full z-[300] fixed top-0 left-0 flex justify-center items-center transition-opacity duration-300 ease-out">
           <div
-            className={`p-6 bg-white border border-gray-200 rounded-lg relative w-[35%] transform transition-transform duration-300 ease-out ${
+            className={`p-6 bg-white border border-gray-200 rounded-lg relative w-[35%] transform transition-transform duration-300 ease-out max-h-[95vh] overflow-y-scroll ${
               visible ? 'scale-100' : 'scale-0'
             }`}
           >
