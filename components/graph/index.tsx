@@ -5,8 +5,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
-const MyDoughnutChart = (params: graphParams) => {
-  console.log(params);
+const MyDoughnutChart = (params: any) => {
   
   const data = {
     labels: ['Sucesso', 'Falha'], // Rótulos dos dados no gráfico
